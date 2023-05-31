@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/05/23 16:56:32 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/05/31 17:22:17 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR	=	src
 
 OBJ_DIR	=	obj
 
-SRCS    =   $(wildcard $(SRC_DIR)/*.c)
+SRCS    =   src/philosophers.c
 
 OBJS	=	$(addprefix obj/,$(notdir $(SRCS:.c=.o)))
 
@@ -24,7 +24,7 @@ CC		=	gcc
 
 RM		=	rm -rf
 
-FLAGS	=	-g -fsanitize=thread -pthread -Iinclude/ -Ilibft/include/ -Wall -Wextra -Werror 
+FLAGS	=	-g -Iinclude/ -Ilibft/include/ -Wall -Wextra -Werror #-fsanitize=thread -pthread
 
 LIB		=	libft
 
