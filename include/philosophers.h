@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/05/31 19:12:27 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:49:01 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_table
 	pthread_t	tid1;
 	pthread_t	tid2;
 
-	//pthread_mutex_t
+	pthread_mutex_t	mutex;
 
 }	t_table;
 

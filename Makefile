@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/05/31 18:55:53 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/06/01 14:47:05 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR	=	src
 
 OBJ_DIR	=	obj
 
-SRCS    =   src/philosophers.c
+SRCS    =   src/philosophers.c	src/tools.c
 
 OBJS	=	$(addprefix obj/,$(notdir $(SRCS:.c=.o)))
 
@@ -24,9 +24,7 @@ CC		=	gcc
 
 RM		=	rm -rf
 
-FLAGS	=	-g -Iinclude/ -Ilibft/include/ -Wall -Wextra -Werror -pthread #-fsanitize=thread 
-
-LIB		=	libft
+FLAGS	=	-g -Iinclude/ -Wall -Wextra -Werror -pthread #-fsanitize=thread 
 
 
 CLR_RMV		= \033[0m
@@ -42,12 +40,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 			@$(CC) $(FLAGS) -c $< -o $@
 
 ${NAME}:	${OBJS}
-			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(LIB) ${CLR_RMV}..."
-			@make -sC ./libft
-			@echo "$(GREEN)$(LIB) created[0m ✔️"
-
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			@${CC} ${FLAGS} ${OBJS} -L./libft/include -lft -o ${NAME}
+			@${CC} ${FLAGS} ${OBJS} -o ${NAME}
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 all:		${NAME}
@@ -56,17 +50,11 @@ objs:
 			@mkdir -p obj
 
 clean:
-			@ echo "$(RED)Deleting $(CYAN)$(LIB) $(CLR_RMV) objs ✔️"
-			@make clean -C ./libft
-
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 			@${RM} -r obj
 
 
 fclean:		clean
-			@ echo "$(RED)Deleting $(CYAN)$(LIB) $(CLR_RMV)binary ✔️"
-			@make fclean -C ./libft
-
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
 			@${RM} ${NAME}
 

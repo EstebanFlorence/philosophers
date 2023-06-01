@@ -6,19 +6,26 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/05/31 19:25:43 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:43:27 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*ft_thread()
+void	*ft_thread(void *arg)
 {
-	ft_printf("OK\n");
+	t_table	*args;
 
-	sleep(3);
+	args = (t_table *)arg;
+	pthread_mutex_lock(&args->mutex);
 
-	ft_printf("FINNISH\n");
+	printf("OK\n");
+	sleep(1);
+
+	pthread_mutex_unlock(&args->mutex);
+
+
+	//ft_printf("FINNISH\n");
 	return (NULL);
 }
 
@@ -36,11 +43,11 @@ void	ft_innit(int ac, char **av, t_table *args)
 void	ft_error(int n)
 {
 	if (n == 0)
-		ft_printf("Error\nWrong number of arguments\n");
+		printf("Error\nWrong number of arguments\n");
 	if (n == 1)
-		ft_printf("Error\nWrong type of arguments\n");
+		printf("Error\nWrong type of arguments\n");
 	if (n == 2)
-		ft_printf("Error\npthread_create()\n");
+		printf("Error\npthread_create()\n");
 
 	exit(EXIT_FAILURE);
 }
@@ -74,12 +81,16 @@ int	main(/* int ac, char **av */)
 	//ft_check(ac, av);
 	//ft_innit(ac, av, &args);
 
-	pthread_create(&args.tid1, NULL, &ft_thread, NULL);
-	pthread_create(&args.tid2, NULL, &ft_thread, NULL);
+	pthread_mutex_init(&args.mutex, NULL);
+
+	pthread_create(&args.tid1, NULL, &ft_thread, &args);
+	pthread_create(&args.tid2, NULL, &ft_thread, &args);
 
 
 	pthread_join(args.tid1, NULL);
 	pthread_join(args.tid2, NULL);
+
+	pthread_mutex_destroy(&args.mutex);
 
 /* 	ft_printf("%d\n%d\n%d\n%d\n%d\n", 
 			args.philos, args.die, args.eat, args.sleep, args.times); */
