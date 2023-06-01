@@ -6,11 +6,34 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 14:43:18 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:54:00 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	ft_free(t_table *args)
+{
+	free(args->tid);
+}
+
+void	ft_error(int n)
+{
+	if (n == 0)
+	{
+		printf("Wrong number of arguments\n");
+		exit(EXIT_SUCCESS);
+	}
+	if (n == 1)
+	{
+		printf("Wrong type of arguments\n");
+		exit(EXIT_SUCCESS);
+	}
+	if (n == 2)
+		perror("pthread()");
+
+	exit(EXIT_FAILURE);
+}
 
 int	ft_atoi(const char *nbr)
 {

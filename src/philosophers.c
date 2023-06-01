@@ -6,13 +6,39 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 14:43:27 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:37:40 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*ft_thread(void *arg)
+void	ft_threadz(t_table *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->philos)
+	{
+		
+		if (pthread_create(&args->tid[i], NULL, &routine, args) != 0)
+			ft_error(2);
+		i++;
+		printf("Thread %d: %lu has started\n", i, args->tid[i]);
+	}
+
+	i = 0;
+	while (i < args->philos)
+	{
+		
+		if (pthread_join(args->tid[i], NULL) != 0)
+			ft_error(2);
+		i++;
+		printf("Thread %d: %lu has finished\n", i, args->tid[i]);
+	}
+
+}
+
+void	*routine(void *arg)
 {
 	t_table	*args;
 
@@ -37,19 +63,9 @@ void	ft_innit(int ac, char **av, t_table *args)
 	args->sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		args->times = ft_atoi(av[5]);
-
-}
-
-void	ft_error(int n)
-{
-	if (n == 0)
-		printf("Error\nWrong number of arguments\n");
-	if (n == 1)
-		printf("Error\nWrong type of arguments\n");
-	if (n == 2)
-		printf("Error\npthread_create()\n");
-
-	exit(EXIT_FAILURE);
+	args->tid = malloc(sizeof(pthread_t) * args->philos);
+	if (!args->tid)
+		exit(EXIT_FAILURE);
 }
 
 void	ft_check(int ac, char **av)
@@ -73,27 +89,30 @@ void	ft_check(int ac, char **av)
 	}
 }
 
-int	main(/* int ac, char **av */)
+int	main(int ac, char **av)
 {
 	t_table	args;
 	//t_philo	philo;
 
-	//ft_check(ac, av);
-	//ft_innit(ac, av, &args);
+	ft_check(ac, av);
+	ft_innit(ac, av, &args);
 
 	pthread_mutex_init(&args.mutex, NULL);
 
-	pthread_create(&args.tid1, NULL, &ft_thread, &args);
-	pthread_create(&args.tid2, NULL, &ft_thread, &args);
+	//pthread_create(&args.tid1, NULL, &routine, &args);
+	//pthread_create(&args.tid2, NULL, &routine, &args);
 
+	ft_threadz(&args);
 
-	pthread_join(args.tid1, NULL);
-	pthread_join(args.tid2, NULL);
+	//pthread_join(args.tid, NULL);
+	//pthread_join(args.tid2, NULL);
 
 	pthread_mutex_destroy(&args.mutex);
 
 /* 	ft_printf("%d\n%d\n%d\n%d\n%d\n", 
 			args.philos, args.die, args.eat, args.sleep, args.times); */
 	
+	ft_free(&args);
+
 	return (0);
 }

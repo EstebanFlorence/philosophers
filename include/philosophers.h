@@ -6,15 +6,12 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 12:49:01 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:05:36 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
-
-# include "../libft/include/libft.h"
-# include "../libft/include/ft_printf.h"
 
 # include <pthread.h>
 # include <stdio.h>
@@ -43,12 +40,25 @@ typedef struct s_table
 	int			sleep;
 	int			times;
 	
-	pthread_t	tid1;
-	pthread_t	tid2;
+	pthread_t	*tid;
 
 	pthread_mutex_t	mutex;
 
 }	t_table;
+
+
+void	ft_check(int ac, char **av);
+void	ft_innit(int ac, char **av, t_table *args);
+
+//	THREADZ
+void	*routine(void *arg);
+void	ft_threadz(t_table *args);
+
+//	TOOLZ
+int		ft_isdigit(int c);
+int		ft_atoi(const char *nbr);
+void	ft_error(int n);
+void	ft_free(t_table *args);
 
 
 #endif

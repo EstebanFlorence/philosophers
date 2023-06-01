@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/06/01 14:47:05 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/06/01 16:31:36 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC		=	gcc
 
 RM		=	rm -rf
 
-FLAGS	=	-g -Iinclude/ -Wall -Wextra -Werror -pthread #-fsanitize=thread 
+FLAGS	=	-g -Iinclude/ -Wall -Wextra -Werror -pthread -fsanitize=thread 
 
 
 CLR_RMV		= \033[0m
