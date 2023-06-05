@@ -6,15 +6,20 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/05 17:09:37 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:47:23 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_free(t_table *args)
+void	ft_finish(t_table *args)
 {
-	free(args->tid);
+	int	i;
+
+	i = 0;
+	while (i > args->philos)
+		pthread_mutex_destroy(&args->forks[i++]);
+	//free(args->tid);
 	free(args->forks);
 }
 

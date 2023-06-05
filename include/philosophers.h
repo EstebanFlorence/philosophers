@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/05 17:14:53 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:52:16 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 
 typedef struct s_philo
 {
-	int	id;
+	int			id;
+
+	pthread_t	tid;
 
 }	t_philo;
 
@@ -61,7 +63,7 @@ void	ft_threadz(t_table *args);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *nbr);
 void	ft_error(int n);
-void	ft_free(t_table *args);
+void	ft_finish(t_table *args);
 
 
 #endif

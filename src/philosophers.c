@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/05 17:14:20 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:06:09 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	*routine(void *arg)
 
 void	ft_innit(int ac, char **av, t_table *args)
 {
+	int	i;
+
+	i = 0;
 	args->philos = ft_atoi(av[1]);
 	args->die = ft_atoi(av[2]);
 	args->eat = ft_atoi(av[3]);
@@ -72,6 +75,19 @@ void	ft_innit(int ac, char **av, t_table *args)
 	args->philo = malloc(sizeof(t_philo) * args->philos);
 	if (!args->philo)
 		ft_error(3);
+	while (i > args->philos)
+		pthread_mutex_init(&args->forks[i++], NULL);
+	i = 0;
+	while (i < args->philos)
+	{
+		args->philo[i].id = i;
+		pthread_mutex_lock(&args->mutex);
+
+		printf("Philo id: %d\n", args->philo[i].id);
+
+		pthread_mutex_unlock(&args->mutex);
+		i++;
+	}
 }
 
 void	ft_check(int ac, char **av)
@@ -109,7 +125,8 @@ int	main(int ac, char **av)
 	//pthread_create(&args.tid2, NULL, &routine, &args);
 
 	ft_threadz(&args);
-
+	for (int i = 0; i < args.philos; i++)
+		printf("Philo id: %d\n", args.philo[i].id);
 	//pthread_join(args.tid, NULL);
 	//pthread_join(args.tid2, NULL);
 
@@ -117,8 +134,9 @@ int	main(int ac, char **av)
 
 /* 	ft_printf("%d\n%d\n%d\n%d\n%d\n", 
 			args.philos, args.die, args.eat, args.sleep, args.times); */
-	
-	ft_free(&args);
+
+
+	ft_finish(&args);
 
 	return (0);
 }
