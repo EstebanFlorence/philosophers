@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 17:37:40 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:14:20 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ void	*routine(void *arg)
 	args = (t_table *)arg;
 	pthread_mutex_lock(&args->mutex);
 
-	printf("OK\n");
+	//printf("OK\n");
 	sleep(1);
 
 	pthread_mutex_unlock(&args->mutex);
 
-
-	//ft_printf("FINNISH\n");
 	return (NULL);
 }
 
@@ -63,9 +61,17 @@ void	ft_innit(int ac, char **av, t_table *args)
 	args->sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		args->times = ft_atoi(av[5]);
+	else
+		args->times = -1;
 	args->tid = malloc(sizeof(pthread_t) * args->philos);
 	if (!args->tid)
-		exit(EXIT_FAILURE);
+		ft_error(3);
+	args->forks = malloc(sizeof(pthread_mutex_t) * args->philos);
+	if (!args->forks)
+		ft_error(3);
+	args->philo = malloc(sizeof(t_philo) * args->philos);
+	if (!args->philo)
+		ft_error(3);
 }
 
 void	ft_check(int ac, char **av)

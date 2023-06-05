@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 16:05:36 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:14:53 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,18 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int			philos;
-	int			die;
-	int			eat;
-	int			sleep;
-	int			times;
+	int				philos;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				times;
 	
-	pthread_t	*tid;
+	pthread_t		*tid;
 
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	*forks;
+
+	t_philo			*philo;
 
 }	t_table;
 

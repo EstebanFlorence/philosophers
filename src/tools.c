@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/01 15:54:00 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:09:37 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,19 @@
 void	ft_free(t_table *args)
 {
 	free(args->tid);
+	free(args->forks);
 }
 
 void	ft_error(int n)
 {
 	if (n == 0)
-	{
-		printf("Wrong number of arguments\n");
-		exit(EXIT_SUCCESS);
-	}
+		write(2, "Error:\nWrong number of arguments\n", 34);
 	if (n == 1)
-	{
-		printf("Wrong type of arguments\n");
-		exit(EXIT_SUCCESS);
-	}
+		write(2, "Error:\nWrong type of arguments\n", 32);
 	if (n == 2)
-		perror("pthread()");
+		write(2, "Error:\npthread()\n", 18);
+	if (n == 3)
+		write(2, "Error:\nmalloc()\n", 17);
 
 	exit(EXIT_FAILURE);
 }
