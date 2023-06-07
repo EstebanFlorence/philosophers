@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 17:23:22 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/07 21:36:38 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	ft_finish(t_table *args)
 {
 	int	i;
 
+	i = 0;
+	while (i < args->philos)
+		pthread_join(args->philo[i++].tid, NULL);
 	i = 0;
 	while (i < args->philos)
 		pthread_mutex_destroy(&args->forks[i++]);

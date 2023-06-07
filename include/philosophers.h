@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 18:36:45 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:35:46 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@
 # define LFORK	"has taken the left fork"
 # define DIED	":skull_and_crossbones: \e[0;31m Died! \e[0m :skull_and_crossbones:"
 
+typedef struct s_table	t_table;
+
 typedef struct s_philo
 {
-	int			id;
-	int			left_fork;
-	int			right_fork;
-	int			eaten;
+	int				id;
+	int				eaten;
 
-	pthread_t	tid;
+	pthread_t		tid;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 
+	t_table			*table;
 }	t_philo;
 
 typedef struct s_table
@@ -44,9 +47,7 @@ typedef struct s_table
 	int				eat;
 	int				sleep;
 	int				times;
-	
-//	pthread_t		*tid;
-//	pthread_mutex_t	mutex;
+	int				end;
 
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	message;
@@ -62,7 +63,9 @@ void	ft_philos(t_table *table);
 
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
-//void	*routine(void *arg);
+void	*routine(void *arg);
+void	ft_message(t_table *table, char *message, int id);
+
 //void	ft_threads(t_table *table);
 
 //void	*exroutine(void *arg);
