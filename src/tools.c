@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 15:31:35 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:23:22 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	ft_finish(t_table *args)
 	int	i;
 
 	i = 0;
-	while (i > args->philos)
+	while (i < args->philos)
 		pthread_mutex_destroy(&args->forks[i++]);
-	//free(args->tid);
+	pthread_mutex_destroy(&args->message);
 	free(args->forks);
+	free(args->philo);
 }
 
 void	ft_error(int n)
@@ -40,12 +41,10 @@ void	ft_error(int n)
 int	ft_atoi(const char *nbr)
 {
 	int	sign;
-	int	power;
 	int	res;
 
 	sign = 1;
-	power = 1.0;
-	res = 0.0;
+	res = 0;
 	while (*nbr == ' ' || \
 			(*nbr >= '\t' && *nbr <= '\r'))
 		nbr++;
@@ -57,18 +56,10 @@ int	ft_atoi(const char *nbr)
 	}
 	while (*nbr >= '0' && *nbr <= '9')
 	{
-		res = res * 10.0 + *nbr - '0';
+		res = res * 10 + *nbr - '0';
 		nbr++;
 	}
-	if (*nbr == '.')
-		nbr++;
-	while (*nbr >= '0' && *nbr <= '9')
-	{
-		res = res * 10.0 + *nbr - '0';
-		power *= 10.0;
-		nbr++;
-	}
-	return (sign * res / power);
+	return (res * sign);
 }
 
 int	ft_isdigit(int c)

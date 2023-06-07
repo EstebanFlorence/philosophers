@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 15:32:37 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:36:45 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	int			id;
 	int			left_fork;
 	int			right_fork;
+	int			eaten;
 
 	pthread_t	tid;
 
@@ -48,6 +49,7 @@ typedef struct s_table
 //	pthread_mutex_t	mutex;
 
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	message;
 
 	t_philo			*philo;
 
@@ -60,8 +62,8 @@ void	ft_philos(t_table *table);
 
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
-void	*routine(void *arg);
-void	ft_threads(t_table *table);
+//void	*routine(void *arg);
+//void	ft_threads(t_table *table);
 
 //void	*exroutine(void *arg);
 
