@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/05 17:52:16 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:32:37 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 typedef struct s_philo
 {
 	int			id;
+	int			left_fork;
+	int			right_fork;
 
 	pthread_t	tid;
 
@@ -42,9 +44,9 @@ typedef struct s_table
 	int				sleep;
 	int				times;
 	
-	pthread_t		*tid;
+//	pthread_t		*tid;
+//	pthread_mutex_t	mutex;
 
-	pthread_mutex_t	mutex;
 	pthread_mutex_t	*forks;
 
 	t_philo			*philo;
@@ -54,10 +56,14 @@ typedef struct s_table
 
 void	ft_check(int ac, char **av);
 void	ft_innit(int ac, char **av, t_table *args);
+void	ft_philos(t_table *table);
 
 //	THREADZ
+void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
-void	ft_threadz(t_table *args);
+void	ft_threads(t_table *table);
+
+//void	*exroutine(void *arg);
 
 //	TOOLZ
 int		ft_isdigit(int c);
