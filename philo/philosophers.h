@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 22:35:46 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:15:10 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define THINK	"\e[0;38;5;199m Is thinking... \e[0m"
 # define RFORK	"has taken the right fork"
 # define LFORK	"has taken the left fork"
-# define DIED	":skull_and_crossbones: \e[0;31m Died! \e[0m :skull_and_crossbones:"
+# define DIED	"☠️☠️☠️ \e[0;31m Died! \e[0m ☠️☠️☠️"
 
 typedef struct s_table	t_table;
 
@@ -50,7 +50,9 @@ typedef struct s_table
 	int				end;
 
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	message;
+	pthread_mutex_t	status;
+
+	struct timeval	time;
 
 	t_philo			*philo;
 
@@ -64,17 +66,18 @@ void	ft_philos(t_table *table);
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
-void	ft_message(t_table *table, char *message, int id);
+void	ft_status(t_table *table, char *message, int id);
 
 //void	ft_threads(t_table *table);
 
 //void	*exroutine(void *arg);
 
 //	TOOLZ
-int		ft_isdigit(int c);
-int		ft_atoi(const char *nbr);
-void	ft_error(int n);
-void	ft_finish(t_table *args);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *nbr);
+void		ft_error(int n);
+void		ft_finish(t_table *args);
+long int	ft_gettime(time_t start, suseconds_t ustart);
 
 
 #endif

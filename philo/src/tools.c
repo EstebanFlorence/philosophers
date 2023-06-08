@@ -6,11 +6,24 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 21:36:38 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:23:29 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+long int	ft_gettime(time_t start, suseconds_t ustart)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec - start) * 1000 + (time.tv_usec - ustart) / 1000);
+}
+
+void	ft_reaper()
+{
+	
+}
 
 void	ft_finish(t_table *args)
 {
@@ -22,7 +35,7 @@ void	ft_finish(t_table *args)
 	i = 0;
 	while (i < args->philos)
 		pthread_mutex_destroy(&args->forks[i++]);
-	pthread_mutex_destroy(&args->message);
+	pthread_mutex_destroy(&args->status);
 	free(args->forks);
 	free(args->philo);
 }

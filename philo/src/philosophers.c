@@ -6,32 +6,11 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/07 22:36:18 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:38:55 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	ft_philos(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	table->philo = malloc(sizeof(t_philo) * table->philos);
-	if (!table->philo)
-		ft_error(3);
-	while(i < table->philos)
-	{
-		table->philo[i].id = i + 1;
-		table->philo[i].left_fork = &table->forks[i];
-		table->philo[i].right_fork = &table->forks[(i + 1) % table->philos];
-		table->philo[i].eaten = 0;
-		table->philo[i].table = table;
-		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
-		i++;
-	}
-
-}
 
 void	ft_innit(int ac, char **av, t_table *args)
 {
@@ -74,16 +53,15 @@ int	main(int ac, char **av)
 
 	ft_check(ac, av);
 	ft_innit(ac, av, &args);
-
 	ft_mutex_innit(&args);
-	ft_philos(&args);
+
+	//ft_philos(&args);
 
 /* 	for (int i = 0; i < args.philos; i++)
-		printf("Philo id: %d\n", args.philo[i].id); */
+		printf("Philo id: %d\n", args.philo[i].id);
 
-/* 	ft_printf("%d\n%d\n%d\n%d\n%d\n", 
+	printf("%d\n%d\n%d\n%d\n%d\n", 
 			args.philos, args.die, args.eat, args.sleep, args.times); */
-
 
 	ft_finish(&args);
 

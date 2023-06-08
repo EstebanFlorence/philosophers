@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/06/07 23:31:16 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/06/08 12:41:57 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR	=	src
 
 OBJ_DIR	=	obj
 
-SRCS    =   src/philosophers.c	src/tools.c	src/threads.c
+SRCS    =   src/philosophers.c		src/tools.c		src/threads.c
 
 OBJS	=	$(addprefix obj/,$(notdir $(SRCS:.c=.o)))
 
@@ -51,7 +51,7 @@ objs:
 
 clean:
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
-			@${RM} -r obj
+			@${RM} obj
 
 
 fclean:		clean
