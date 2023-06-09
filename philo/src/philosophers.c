@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/09 18:02:26 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:31:56 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 	ft_innit(ac, av, &args);
 	ft_mutex_innit(&args);
 
-	//ft_philos(&args);
+	ft_philos(&args);
 
 /* 	for (int i = 0; i < args.philos; i++)
 		printf("Philo id: %d\n", args.philo[i].id);

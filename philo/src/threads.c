@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/09 18:17:46 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:27:23 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	*routine(void *arg)
 	eat = 0;
 	while (1)
 	{
+		ft_status(table, THINK, philo->id);
 		
 		eat++;
 		if (table->times && eat >= table->times)
