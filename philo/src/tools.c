@@ -6,13 +6,13 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/08 19:23:29 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:12:50 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long int	ft_gettime(time_t start, suseconds_t ustart)
+time_t	ft_timedifference(time_t start, suseconds_t ustart)
 {
 	struct timeval	time;
 
@@ -20,9 +20,22 @@ long int	ft_gettime(time_t start, suseconds_t ustart)
 	return ((time.tv_sec - start) * 1000 + (time.tv_usec - ustart) / 1000);
 }
 
-void	ft_reaper()
+time_t	ft_gettime(void)
 {
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	ft_timecheck(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->table->check);
+	if ((philo->start - philo->table->start) >= philo->table->die)
+		ft_status(philo->table, DIED, philo->id);
 	
+	pthread_mutex_unlock(&philo->table->check);
+
 }
 
 void	ft_finish(t_table *args)

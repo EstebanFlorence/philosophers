@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/08 19:15:10 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:09:52 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_philo
 	int				id;
 	int				eaten;
 
+	time_t			start;
+
 	pthread_t		tid;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -51,8 +53,10 @@ typedef struct s_table
 
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	status;
+	pthread_mutex_t	check;
 
 	struct timeval	time;
+	time_t			start;
 
 	t_philo			*philo;
 
@@ -77,7 +81,8 @@ int			ft_isdigit(int c);
 int			ft_atoi(const char *nbr);
 void		ft_error(int n);
 void		ft_finish(t_table *args);
-long int	ft_gettime(time_t start, suseconds_t ustart);
+time_t		ft_gettime(void);
+time_t		ft_timedifference(time_t start, suseconds_t ustart);
 
 
 #endif

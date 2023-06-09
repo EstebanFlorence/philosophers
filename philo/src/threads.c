@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/08 19:31:21 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:17:46 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_mutex_innit(t_table *table)
 	while (i < table->philos)
 		pthread_mutex_init(&table->forks[i++], NULL);
 	pthread_mutex_init(&table->status, NULL);
+	pthread_mutex_init(&table->check, NULL);
 
 }
 

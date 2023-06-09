@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/08 18:38:55 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:02:26 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	ft_innit(int ac, char **av, t_table *args)
 		args->times = ft_atoi(av[5]);
 	else
 		args->times = -1;
+	gettimeofday(&args->time, NULL);
+	args->start = ft_gettime();
+	
 
 }
 
