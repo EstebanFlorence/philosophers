@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/09 18:09:52 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:44:45 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ typedef struct s_table
 	int				eat;
 	int				sleep;
 	int				times;
+
 	int				end;
 
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	status;
+
 	pthread_mutex_t	check;
 
 	struct timeval	time;
