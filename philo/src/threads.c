@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/13 21:20:00 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:06:59 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_status(t_table *table, char *message, int id)
 	pthread_mutex_unlock(&table->status);
 }
 
-void	ft_mutex_locker(t_philo *philo)
+void	ft_forker(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -69,16 +69,20 @@ void	*routine(void *arg)
 	eat = 0;
 	while (1)
 	{
-		ft_mutex_locker(philo);
-		//pthread_mutex_lock(philo->left_fork);
-		//ft_status(table, LFORK, philo->id);
-		//pthread_mutex_lock(philo->right_fork);
-		//ft_status(table, RFORK, philo->id);
+		ft_forker(philo);
 		ft_status(table, EAT, philo->id);
 		usleep(table->eat * 1000);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_lock(&table->check);
+		if (ft_timedifference(table->time.tv_sec, table->time.tv_usec) >= table->die)
+		{
+			ft_status(table, DIED, philo->id);
+			pthread_mutex_unlock(&table->check);
+			break;
+		}
+		//pthread_mutex_unlock(&table->check);
+		//pthread_mutex_lock(&table->check);
 		if (table->times != -1 && ++eat >= table->times)
 		{
 			printf("Philo %d is full\n", philo->id);

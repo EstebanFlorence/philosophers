@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/13 21:18:02 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:57:30 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
 void	ft_status(t_table *table, char *message, int id);
 
-void	ft_mutex_locker(t_philo *philo);
+void	ft_forker(t_philo *philo);
 
 //	TOOLZ
 int			ft_isdigit(int c);
