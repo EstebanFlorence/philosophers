@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/12 19:44:45 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 21:18:02 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_table	t_table;
 typedef struct s_philo
 {
 	int				id;
-	int				eaten;
 
 	time_t			start;
 
@@ -74,9 +73,7 @@ void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
 void	ft_status(t_table *table, char *message, int id);
 
-//void	ft_threads(t_table *table);
-
-//void	*exroutine(void *arg);
+void	ft_mutex_locker(t_philo *philo);
 
 //	TOOLZ
 int			ft_isdigit(int c);
