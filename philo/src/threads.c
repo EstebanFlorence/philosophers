@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/13 22:53:37 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:51:01 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,17 @@ void	ft_forker(t_philo *philo)
 	}
 }
 
-/* void	ft_death(t_philo *philo)
+int	ft_death(t_philo *philo)
 {
-
-} */
+	pthread_mutex_lock(&philo->table->check);
+	if (philo->table->end == 1)
+	{
+		pthread_mutex_unlock(&philo->table->check);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->table->check);
+	return (0);
+}
 
 void	*routine(void *arg)
 {
@@ -91,6 +98,7 @@ void	*routine(void *arg)
 		{
 			pthread_mutex_unlock(&table->check);
 			ft_status(table, DIED, philo->id);
+		//	table->end = 1;
 		//	ft_death(philo);
 			break;
 		}

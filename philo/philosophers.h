@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/13 21:57:30 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:38:52 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ void		ft_error(int n);
 void		ft_finish(t_table *args);
 time_t		ft_gettime(void);
 time_t		ft_timedifference(time_t start, suseconds_t ustart);
-
+int			ft_death(t_philo *philo);
 
 #endif
