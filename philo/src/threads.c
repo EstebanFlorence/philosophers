@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/12 19:51:02 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/13 02:12:09 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,13 @@ void	*routine(void *arg)
 {
 	t_philo	*philo;
 	t_table	*table;
-	//int		eat;
+	int		eat;
 
 	philo = (t_philo *)arg;
 	table = philo->table;
-	//eat = 0;
+	eat = 0;
 	while (1)
 	{
-		ft_status(table, THINK, philo->id);
 		pthread_mutex_lock(philo->left_fork);
 		ft_status(table, LFORK, philo->id);
 		pthread_mutex_lock(philo->right_fork);
@@ -59,14 +58,16 @@ void	*routine(void *arg)
 		usleep(table->eat * 1000);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_lock(&table->check);
+		if (table->times != -1 && ++eat >= table->times)
+		{
+			pthread_mutex_unlock(&table->check);
+			break;
+		}
+		pthread_mutex_unlock(&table->check);
 		ft_status(table, SLEEP, philo->id);
 		usleep(table->sleep * 1000);
-		/* eat++;
-		if (table->times && eat >= table->times)
-		{
-			philo->eaten = eat;
-			break;
-		} */
+		ft_status(table, THINK, philo->id);
 	}
 	return (NULL);
 }
