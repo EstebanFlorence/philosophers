@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 19:24:33 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:47:18 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_status(t_table *table, char *message, int id)
 
 void	ft_forker(t_philo *philo)
 {
-	if (philo->id != philo->table->philos)
+	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		ft_status(philo->table, LFORK, philo->id);
