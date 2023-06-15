@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 18:27:58 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:13:31 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_error(int n)
 		write(2, "Error:\npthread()\n", 18);
 	if (n == 3)
 		write(2, "Error:\nmalloc()\n", 17);
-
 	exit(EXIT_FAILURE);
 }
 
@@ -106,61 +105,3 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
-
-
-
-/*
-	while (i < args->philos)
-		pthread_mutex_init(&args->forks[i++], NULL);
-	i = 0;
-	while (i < args->philos)
-	{
-		args->philo[i].id = i;
-		pthread_mutex_lock(&args->mutex);
-
-		printf("Philo id: %d\n", args->philo[i].id);
-
-		pthread_mutex_unlock(&args->mutex);
-		i++;
-	}
-
-void	ft_threadz(t_table *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->philos)
-	{
-		
-		if (pthread_create(&args->tid[i], NULL, &routine, args) != 0)
-			ft_error(2);
-		i++;
-		printf("Thread %d: %lu has started\n", i, args->tid[i]);
-	}
-
-	i = 0;
-	while (i < args->philos)
-	{
-		
-		if (pthread_join(args->tid[i], NULL) != 0)
-			ft_error(2);
-		i++;
-		printf("Thread %d: %lu has finished\n", i, args->tid[i]);
-	}
-
-void	*exroutine(void *arg)
-{
-	t_table	*args;
-
-	args = (t_table *)arg;
-	pthread_mutex_lock(&args->mutex);
-
-	printf("OK\n");
-	sleep(1);
-
-	pthread_mutex_unlock(&args->mutex);
-
-	return (NULL);
-}
-
-} */

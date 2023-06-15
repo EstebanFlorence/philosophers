@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 18:31:19 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:04:57 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 	int				id;
 
 	struct timeval	time;
-	time_t 			last_meal;	
+	time_t			last_meal;
 	pthread_t		tid;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -58,12 +58,10 @@ typedef struct s_table
 	pthread_mutex_t	check;
 
 	struct timeval	time;
-	//time_t			start;
 
 	t_philo			*philo;
 
 }	t_table;
-
 
 void	ft_check(int ac, char **av);
 void	ft_innit(int ac, char **av, t_table *args);
@@ -72,18 +70,17 @@ void	ft_philos(t_table *table);
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
+void	ft_eat(t_philo *philo);
 void	ft_status(t_table *table, char *message, int id);
-
-void	ft_forker(t_philo *philo);
+void	ft_death(t_table *table);
 
 //	TOOLZ
-int			ft_isdigit(int c);
-int			ft_atoi(const char *nbr);
-void		ft_error(int n);
-void		ft_finish(t_table *args);
-time_t		ft_gettime(void);
-time_t		ft_timedifference(time_t start, suseconds_t ustart);
-int			ft_death(t_philo *philo);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_isdigit(int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_atoi(const char *nbr);
+void	ft_error(int n);
+void	ft_finish(t_table *args);
+time_t	ft_gettime(void);
+time_t	ft_timedifference(time_t start, suseconds_t ustart);
 
 #endif

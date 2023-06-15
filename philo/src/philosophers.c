@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 19:20:36 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:12:52 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_innit(int ac, char **av, t_table *args)
 	if (ac == 6)
 		args->times = ft_atoi(av[5]);
 	else
-		args->times = -1;	
+		args->times = -1;
 	args->end = 0;
 }
 
@@ -54,16 +54,7 @@ int	main(int ac, char **av)
 	ft_check(ac, av);
 	ft_innit(ac, av, &args);
 	ft_mutex_innit(&args);
-
 	ft_philos(&args);
-
-/* 	for (int i = 0; i < args.philos; i++)
-		printf("Philo id: %d\n", args.philo[i].id);
-
-	printf("%d\n%d\n%d\n%d\n%d\n", 
-			args.philos, args.die, args.eat, args.sleep, args.times); */
-
 	ft_finish(&args);
-
 	return (0);
 }
