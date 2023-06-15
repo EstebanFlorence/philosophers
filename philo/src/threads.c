@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/13 23:51:01 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:24:33 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,33 @@ void	ft_mutex_innit(t_table *table)
 
 void	ft_status(t_table *table, char *message, int id)
 {
-	struct timeval	time;
-	long			milliseconds;
-	long			seconds;
+	static int flag = 0;
+	long			time_is_now;
 
-	gettimeofday(&time, NULL);
-	milliseconds = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-
-    seconds = time.tv_sec % 60;
-
+	time_is_now = ft_timedifference(table->time.tv_sec, table->time.tv_usec);
 	pthread_mutex_lock(&table->status);
-    printf("%02ld.%03ld %d %s\n", seconds, milliseconds % 1000, id, message);
+	if (!flag)
+    	printf("%ld %d %s\n", time_is_now, id, message);
+	if (!flag && !ft_strncmp(message, DIED, 57))
+		flag = 1;
 	pthread_mutex_unlock(&table->status);
-
-/* 	pthread_mutex_lock(&table->status);
-	printf("%ld %d %s\n", millisec, id, message);
-	pthread_mutex_unlock(&table->status); */
 }
 
 void	ft_forker(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id != philo->table->philos)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		ft_status(philo->table, LFORK, philo->id);
 		pthread_mutex_lock(philo->right_fork);
 		ft_status(philo->table, RFORK, philo->id);
+		ft_status(philo->table, EAT, philo->id);
+		pthread_mutex_lock(&philo->table->check);
+		philo->last_meal = ft_timedifference(philo->table->time.tv_sec, philo->table->time.tv_usec);
+		pthread_mutex_unlock(&philo->table->check);
+		usleep(philo->table->eat * 1000);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 	}
 	else
 	{
@@ -62,19 +63,40 @@ void	ft_forker(t_philo *philo)
 		ft_status(philo->table, RFORK, philo->id);
 		pthread_mutex_lock(philo->left_fork);
 		ft_status(philo->table, LFORK, philo->id);
+		ft_status(philo->table, EAT, philo->id);
+		pthread_mutex_lock(&philo->table->check);
+		philo->last_meal = ft_timedifference(philo->table->time.tv_sec, philo->table->time.tv_usec);
+		pthread_mutex_unlock(&philo->table->check);
+		usleep(philo->table->eat * 1000);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 	}
 }
 
-int	ft_death(t_philo *philo)
+void check_death(t_table *table)
 {
-	pthread_mutex_lock(&philo->table->check);
-	if (philo->table->end == 1)
+	int i = 0;
+	while (1)
 	{
-		pthread_mutex_unlock(&philo->table->check);
-		return (1);
+		pthread_mutex_lock(&table->check);
+		if (table->end == 1)
+		{
+			pthread_mutex_unlock(&table->check);
+			break;
+		}
+		if (ft_timedifference(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal > (time_t)table->die)
+		{
+			ft_status(table, DIED, table->philo[i].id);
+			table->end = 1;
+			pthread_mutex_unlock(&table->check);
+			return ;
+		}
+		i++;
+		if (i == table->philos)
+			i = 0;
+		pthread_mutex_unlock(&table->check);
+		usleep(5000);
 	}
-	pthread_mutex_unlock(&philo->table->check);
-	return (0);
 }
 
 void	*routine(void *arg)
@@ -89,25 +111,10 @@ void	*routine(void *arg)
 	while (1)
 	{
 		ft_forker(philo);
-		ft_status(table, EAT, philo->id);
-		usleep(table->eat * 1000);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_lock(&table->check);
-		if (ft_timedifference(table->time.tv_sec, table->time.tv_usec) >= table->die * 1000)
+		if (table->end == 1 || (table->times != -1 && ++eat >= table->times))
 		{
 			pthread_mutex_unlock(&table->check);
-			ft_status(table, DIED, philo->id);
-		//	table->end = 1;
-		//	ft_death(philo);
-			break;
-		}
-		//pthread_mutex_unlock(&table->check);
-		//pthread_mutex_lock(&table->check);
-		if (table->times != -1 && ++eat >= table->times)
-		{
-			pthread_mutex_unlock(&table->check);
-			printf("Philo %d is full\n", philo->id);
 			break;
 		}
 		pthread_mutex_unlock(&table->check);
@@ -126,14 +133,17 @@ void	ft_philos(t_table *table)
 	if (!table->philo)
 		ft_error(3);
 	i = 0;
+	gettimeofday(&table->time, NULL);
 	while(i < table->philos)
 	{
 		table->philo[i].id = i + 1;
 		table->philo[i].left_fork = &table->forks[i];
 		table->philo[i].right_fork = &table->forks[(i + 1) % table->philos];
 		table->philo[i].table = table;
+		table->philo[i].last_meal = ft_gettime();
+		gettimeofday(&table->philo[i].time, NULL);
 		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
 		i++;
 	}
-
+	check_death(table);
 }

@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/09 18:21:37 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:27:58 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ time_t	ft_gettime(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-void	ft_timecheck(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->table->check);
-	if ((philo->start - philo->table->start) >= philo->table->die)
-		ft_status(philo->table, DIED, philo->id);
-	
-	pthread_mutex_unlock(&philo->table->check);
-
 }
 
 void	ft_finish(t_table *args)
@@ -90,6 +80,24 @@ int	ft_atoi(const char *nbr)
 		nbr++;
 	}
 	return (res * sign);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
+
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	i = 0;
+	while (n--)
+	{
+		if (ss1[i] != ss2[i] || ss1[i] == 0 || ss2[i] == 0)
+			return (ss1[i] - ss2[i]);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_isdigit(int c)
