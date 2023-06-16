@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 11:28:24 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:02:02 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ void	ft_finish(t_table *args)
 		pthread_join(args->philo[i++].tid, NULL);
 	i = 0;
 	while (i < args->philos)
-	{
-		pthread_mutex_destroy(&args->forks[i]);
-		//pthread_mutex_destroy(&args->philo[i].check);
-		i++;
-	}
+		pthread_mutex_destroy(&args->forks[i++]);
 	pthread_mutex_destroy(&args->status);
 	pthread_mutex_destroy(&args->check);
 	free(args->forks);
@@ -59,53 +55,4 @@ void	ft_error(int n)
 	if (n == 3)
 		write(2, "Error:\nmalloc()\n", 17);
 	exit(EXIT_FAILURE);
-}
-
-int	ft_atoi(const char *nbr)
-{
-	int	sign;
-	int	res;
-
-	sign = 1;
-	res = 0;
-	while (*nbr == ' ' || \
-			(*nbr >= '\t' && *nbr <= '\r'))
-		nbr++;
-	if (*nbr == '-' || *nbr == '+')
-	{
-		if (*nbr == '-')
-			sign *= -1;
-		nbr++;
-	}
-	while (*nbr >= '0' && *nbr <= '9')
-	{
-		res = res * 10 + *nbr - '0';
-		nbr++;
-	}
-	return (res * sign);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*ss1;
-	unsigned char	*ss2;
-
-	ss1 = (unsigned char *)s1;
-	ss2 = (unsigned char *)s2;
-	i = 0;
-	while (n--)
-	{
-		if (ss1[i] != ss2[i] || ss1[i] == 0 || ss2[i] == 0)
-			return (ss1[i] - ss2[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
 }
