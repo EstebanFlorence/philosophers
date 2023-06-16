@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 20:11:55 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:27:43 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,50 @@ void	ft_status(t_table *table, char *message, int id)
 	static int	death;
 	long		timenow;
 
+	pthread_mutex_lock(&table->status);
 	death = 0;
 	timenow = ft_timedifference(table->time.tv_sec, table->time.tv_usec);
-	pthread_mutex_lock(&table->status);
 	if (!death)
 		printf("%ld %d %s\n", timenow, id, message);
 	if (!death && !ft_strncmp(message, DIED, 57))
 		death = 1;
 	pthread_mutex_unlock(&table->status);
+}
+
+/* void	ft_reaper(t_table *table, int i)
+{
+
+} */
+
+void	ft_death(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&table->check);
+		if (table->end == 1)
+		{
+			pthread_mutex_unlock(&table->check);
+			break ;
+		}
+		//ft_reaper(table, i);
+		if (ft_timedifference
+			(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal
+			> (time_t)table->die)
+		{
+			ft_status(table, DIED, table->philo[i].id);
+			table->end = 1;
+			pthread_mutex_unlock(&table->check);
+			return ;
+		}
+		i++;
+		if (i == table->philos)
+			i = 0;
+		pthread_mutex_unlock(&table->check);
+		usleep(5000);
+	}
 }
 
 void	ft_forker1(t_philo *philo)
@@ -79,41 +115,6 @@ void	ft_eat(t_philo *philo)
 		ft_forker2(philo);
 	else
 		ft_forker1(philo);
-}
-
-void	ft_reaper(t_table *table, int i)
-{
-	if (ft_timedifference
-		(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal
-		> (time_t)table->die)
-	{
-		ft_status(table, DIED, table->philo[i].id);
-		table->end = 1;
-		pthread_mutex_unlock(&table->check);
-		return ;
-	}
-}
-
-void	ft_death(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (1)
-	{
-		pthread_mutex_lock(&table->check);
-		if (table->end == 1)
-		{
-			pthread_mutex_unlock(&table->check);
-			break ;
-		}
-		ft_reaper(table, i);
-		i++;
-		if (i == table->philos)
-			i = 0;
-		pthread_mutex_unlock(&table->check);
-		usleep(5000);
-	}
 }
 
 void	*routine(void *arg)
@@ -158,6 +159,7 @@ void	ft_philos(t_table *table)
 		table->philo[i].right_fork = &table->forks[(i + 1) % table->philos];
 		table->philo[i].table = table;
 		table->philo[i].last_meal = ft_gettime();
+		//pthread_mutex_init(&table->philo[i].check, NULL);
 		gettimeofday(&table->philo[i].time, NULL);
 		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
 		i++;

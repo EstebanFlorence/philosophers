@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/15 20:04:57 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:47:41 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	pthread_t		tid;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	//pthread_mutex_t	check;
 
 	t_table			*table;
 }	t_philo;
