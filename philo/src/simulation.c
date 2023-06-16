@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 22:26:41 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 14:34:51 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:37:43 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_lastmeal(t_philo *philo)
 	pthread_mutex_lock(&philo->table->check);
 	philo->last_meal = ft_timedifference
 		(philo->table->time.tv_sec, philo->table->time.tv_usec);
-	//printf("Philo %d last meal: %ld\n", philo->id, philo->last_meal);
+	printf("Philo %d last meal: %ld\n", philo->id, philo->last_meal);
 	pthread_mutex_unlock(&philo->table->check);
 	usleep(philo->table->eat * 1000);
 }
@@ -85,6 +85,7 @@ void	*routine(void *arg)
 		pthread_mutex_lock(&table->check);
 		if (table->end == 1 || (table->times != -1 && ++eat >= table->times))
 		{
+			table->end = 1;
 			printf("Philosopher %d is full\n", philo->id);
 			pthread_mutex_unlock(&table->check);
 			break ;

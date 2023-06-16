@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 12:12:48 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:30:28 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_philos(t_table *table)
 		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
 		i++;
 	}
-	ft_death(table);
+	ft_end(table);
 }
 
 void	ft_mutex_innit(t_table *table)
@@ -60,6 +60,7 @@ void	ft_innit(int ac, char **av, t_table *args)
 	else
 		args->times = -1;
 	args->end = 0;
+	args->death = 0;
 }
 
 void	ft_check(int ac, char **av)

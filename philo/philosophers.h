@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 12:21:31 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:31:07 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ typedef struct s_table
 	int				sleep;
 	int				times;
 
+	int				death;
 	int				end;
 
-	pthread_t		deathread;
+	//pthread_t		deathread;
 
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	status;
@@ -73,8 +74,8 @@ void	*routine(void *arg);
 void	ft_eat(t_philo *philo);
 void	ft_lastmeal(t_philo *philo);
 void	ft_status(t_table *table, char *message, int id);
-void	ft_death(t_table *table);
-int		ft_reaper(t_table *table, int i);
+void	ft_end(t_table *table);
+int		ft_death(t_table *table, int i);
 
 //	TOOLZ
 int		ft_isdigit(int c);
