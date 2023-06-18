@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   death.c                                            :+:      :+:    :+:   */
+/*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:20 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 22:33:01 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/18 04:03:28 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	ft_death(t_table *table, int i)
 		(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal
 		> (time_t)table->die && table->death == 0)
 	{
-		printf("ft_death:\n\ttime difference: %ld\n", ft_timedifference
-		(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal);
 		ft_status(table, DIED, table->philo[i].id);
-		table->death = 1;
 		table->end = 1;
 		return (1);
 	}
@@ -36,12 +33,7 @@ void	ft_end(t_table *table)
 	while (1)
 	{
 		pthread_mutex_lock(&table->check);
-		if (table->end == 1)
-		{
-			pthread_mutex_unlock(&table->check);
-			break ;
-		}
-		if (ft_death(table, i))
+		if (table->end == 1 || ft_death(table, i))
 		{
 			pthread_mutex_unlock(&table->check);
 			break ;
@@ -52,4 +44,21 @@ void	ft_end(t_table *table)
 		pthread_mutex_unlock(&table->check);
 		usleep(5000);
 	}
+}
+
+void	ft_destroy(t_table *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->philos)
+		pthread_join(args->philo[i++].tid, NULL);
+	i = 0;
+	while (i < args->philos)
+		pthread_mutex_destroy(&args->forks[i++]);
+	pthread_mutex_destroy(&args->status);
+	pthread_mutex_destroy(&args->check);
+	pthread_mutex_destroy(&args->simulation);
+	free(args->forks);
+	free(args->philo);
 }

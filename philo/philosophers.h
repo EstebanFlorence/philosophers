@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 22:31:07 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:13:58 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_table
 	pthread_mutex_t	status;
 	pthread_mutex_t	check;
 
+	pthread_mutex_t	simulation;
+
 	struct timeval	time;
 
 	t_philo			*philo;
@@ -72,7 +74,7 @@ void	ft_philos(t_table *table);
 void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
 void	ft_eat(t_philo *philo);
-void	ft_lastmeal(t_philo *philo);
+void	ft_meal(t_philo *philo);
 void	ft_status(t_table *table, char *message, int id);
 void	ft_end(t_table *table);
 int		ft_death(t_table *table, int i);
@@ -82,7 +84,7 @@ int		ft_isdigit(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *nbr);
 void	ft_error(int n);
-void	ft_finish(t_table *args);
+void	ft_destroy(t_table *args);
 time_t	ft_gettime(void);
 time_t	ft_timedifference(time_t start, suseconds_t ustart);
 

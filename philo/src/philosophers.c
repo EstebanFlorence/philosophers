@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/16 22:30:28 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:15:39 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	ft_mutex_innit(t_table *table)
 		pthread_mutex_init(&table->forks[i++], NULL);
 	pthread_mutex_init(&table->check, NULL);
 	pthread_mutex_init(&table->status, NULL);
+	pthread_mutex_init(&table->simulation, NULL);
 }
 
 void	ft_innit(int ac, char **av, t_table *args)
 {
 	args->philos = ft_atoi(av[1]);
+	if (args->philos < 2)
+		ft_error(4);
 	args->die = ft_atoi(av[2]);
 	args->eat = ft_atoi(av[3]);
 	args->sleep = ft_atoi(av[4]);
@@ -93,6 +96,6 @@ int	main(int ac, char **av)
 	ft_innit(ac, av, &args);
 	ft_mutex_innit(&args);
 	ft_philos(&args);
-	ft_finish(&args);
+	ft_destroy(&args);
 	return (0);
 }

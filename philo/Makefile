@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/06/16 12:49:00 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/06/18 03:20:46 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_DIR	=	src
 OBJ_DIR	=	obj
 
 SRCS    =   src/philosophers.c		src/tools.c		src/simulation.c \
-			src/libft.c				src/death.c
+			src/libft.c				src/end.c
 
 OBJS	=	$(addprefix obj/,$(notdir $(SRCS:.c=.o)))
 
