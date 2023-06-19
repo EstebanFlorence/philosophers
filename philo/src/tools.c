@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/19 14:12:13 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:40:23 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	ft_error(int n)
 void	ft_philo(t_table *table)
 {
 	ft_status(table, RFORK, 1);
-	ft_usleep(table->die);
+	ft_usleep(table->die + 1);
 	ft_status(table, DIED, 1);
 	pthread_mutex_destroy(&table->forks[0]);
 	pthread_mutex_destroy(&table->status);
 	pthread_mutex_destroy(&table->check);
 	free(table->forks);
 	free(table->philo);
-	exit (EXIT_SUCCESS) ;
+	exit (EXIT_SUCCESS);
 }
