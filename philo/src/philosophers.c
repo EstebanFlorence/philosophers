@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/18 15:15:39 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:22:47 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ void	ft_philos(t_table *table)
 	table->philo = malloc(sizeof(t_philo) * table->philos);
 	if (!table->philo)
 		ft_error(3);
-	i = 0;
+	i = -1;
 	gettimeofday(&table->time, NULL);
-	while (i < table->philos)
+/* 	if (table->philos == 1)
+	{
+		ft_philo(table);
+		return ;
+	} */
+	while (++i < table->philos)
 	{
 		table->philo[i].id = i + 1;
 		table->philo[i].left_fork = &table->forks[i];
@@ -29,8 +34,8 @@ void	ft_philos(t_table *table)
 		table->philo[i].table = table;
 		table->philo[i].last_meal = ft_gettime();
 		gettimeofday(&table->philo[i].time, NULL);
-		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
-		i++;
+		if (table->philos > 1)
+			pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
 	}
 	ft_end(table);
 }

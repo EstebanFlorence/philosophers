@@ -32,7 +32,7 @@ void	ft_meal(t_philo *philo)
 	philo->last_meal = ft_timedifference
 		(philo->time.tv_sec, philo->time.tv_usec);
 	pthread_mutex_unlock(&philo->table->check);
-	usleep(philo->table->eat * 1000);
+	ft_usleep(philo->table->eat);
 }
 
 void	ft_eat(t_philo *philo)
@@ -87,7 +87,7 @@ void	*routine(void *arg)
 		}
 		pthread_mutex_unlock(&table->check);
 		ft_status(table, SLEEP, philo->id);
-		usleep(table->sleep * 1000);
+		ft_usleep(table->sleep);
 		ft_status(table, THINK, philo->id);
 	}
 	return (NULL);

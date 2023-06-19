@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/18 15:13:58 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:00:31 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_philos(t_table *table);
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
+void	*philo(void *arg);
 void	ft_eat(t_philo *philo);
 void	ft_meal(t_philo *philo);
 void	ft_status(t_table *table, char *message, int id);
@@ -87,5 +88,6 @@ void	ft_error(int n);
 void	ft_destroy(t_table *args);
 time_t	ft_gettime(void);
 time_t	ft_timedifference(time_t start, suseconds_t ustart);
+void	ft_usleep(time_t time);
 
 #endif
