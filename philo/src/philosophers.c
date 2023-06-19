@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/19 02:22:47 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:56:37 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ void	ft_philos(t_table *table)
 		ft_error(3);
 	i = -1;
 	gettimeofday(&table->time, NULL);
-/* 	if (table->philos == 1)
-	{
+	if (table->philos == 1)
 		ft_philo(table);
-		return ;
-	} */
 	while (++i < table->philos)
 	{
 		table->philo[i].id = i + 1;
@@ -34,8 +31,7 @@ void	ft_philos(t_table *table)
 		table->philo[i].table = table;
 		table->philo[i].last_meal = ft_gettime();
 		gettimeofday(&table->philo[i].time, NULL);
-		if (table->philos > 1)
-			pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
+		pthread_create(&table->philo[i].tid, NULL, routine, &table->philo[i]);
 	}
 	ft_end(table);
 }
@@ -52,14 +48,11 @@ void	ft_mutex_innit(t_table *table)
 		pthread_mutex_init(&table->forks[i++], NULL);
 	pthread_mutex_init(&table->check, NULL);
 	pthread_mutex_init(&table->status, NULL);
-	pthread_mutex_init(&table->simulation, NULL);
 }
 
 void	ft_innit(int ac, char **av, t_table *args)
 {
 	args->philos = ft_atoi(av[1]);
-	if (args->philos < 2)
-		ft_error(4);
 	args->die = ft_atoi(av[2]);
 	args->eat = ft_atoi(av[3]);
 	args->sleep = ft_atoi(av[4]);

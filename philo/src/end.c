@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:48:20 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/19 02:44:48 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:49:29 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_death(t_table *table, int i)
 {
-	if (ft_timedifference
-		(table->death == 0 && table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal
+	if (table->death == 0 && ft_timedifference
+		(table->time.tv_sec, table->time.tv_usec) - table->philo[i].last_meal
 		> (time_t)table->die)
 	{
 		ft_status(table, DIED, table->philo[i].id);
@@ -58,7 +58,6 @@ void	ft_destroy(t_table *args)
 		pthread_mutex_destroy(&args->forks[i++]);
 	pthread_mutex_destroy(&args->status);
 	pthread_mutex_destroy(&args->check);
-	pthread_mutex_destroy(&args->simulation);
 	free(args->forks);
 	free(args->philo);
 }

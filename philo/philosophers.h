@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/18 16:00:31 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:54:03 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,9 @@ typedef struct s_table
 	int				death;
 	int				end;
 
-	//pthread_t		deathread;
-
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	status;
 	pthread_mutex_t	check;
-
-	pthread_mutex_t	simulation;
 
 	struct timeval	time;
 
@@ -69,11 +65,11 @@ typedef struct s_table
 void	ft_check(int ac, char **av);
 void	ft_innit(int ac, char **av, t_table *args);
 void	ft_philos(t_table *table);
+void	ft_philo(t_table *table);
 
 //	THREADZ
 void	ft_mutex_innit(t_table *table);
 void	*routine(void *arg);
-void	*philo(void *arg);
 void	ft_eat(t_philo *philo);
 void	ft_meal(t_philo *philo);
 void	ft_status(t_table *table, char *message, int id);

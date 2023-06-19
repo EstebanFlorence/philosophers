@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 14:41:58 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/18 16:23:49 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:56:45 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,34 +47,13 @@ void	ft_error(int n)
 		write(2, "Error:\npthread()\n", 18);
 	if (n == 3)
 		write(2, "Error:\nmalloc()\n", 17);
-	if (n == 4)
-		write(2, "Error:\nWrong number of philosophers\n", 37);
 	exit(EXIT_FAILURE);
 }
 
 void	ft_philo(t_table *table)
 {
 	ft_status(table, RFORK, 1);
-	ft_status(table, "can't eat!\n", 1);
 	ft_usleep(table->die);
-	if (ft_death(table, 1))
-		return ;
-}
-
-void	*philo(void *arg)
-{
-	t_philo	*philo;
-	t_table	*table;
-
-	philo = (t_philo *)arg;
-	table = philo->table;
-	while(1)
-	{
-		ft_status(table, RFORK, philo->id);
-		ft_status(table, "can't eat!\n", philo->id);
-		ft_usleep(table->die);
-		if (ft_death(table, philo->id))
-			break ;
-	}
-	return (NULL);
+	ft_status(table, DIED, 1);
+	exit (EXIT_SUCCESS) ;
 }

@@ -92,4 +92,3 @@ void	*routine(void *arg)
 	}
 	return (NULL);
 }
-
