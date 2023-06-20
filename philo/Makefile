@@ -6,7 +6,7 @@
 #    By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 16:32:57 by adi-nata          #+#    #+#              #
-#    Updated: 2023/06/19 17:36:05 by adi-nata         ###   ########.fr        #
+#    Updated: 2023/06/20 13:12:37 by adi-nata         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ ${NAME}:	${OBJS}
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 
 all:		${NAME}
+
+bonus:		all
 
 objs:
 			@mkdir -p obj
