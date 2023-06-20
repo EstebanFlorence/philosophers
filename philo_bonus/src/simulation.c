@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:57 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/21 00:09:32 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:57:37 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void	ft_eat(t_philo *philo)
 	sem_wait(philo->table->forks);
 	ft_status(philo->table, FORK, philo->id);
 	sem_wait(philo->table->forks);
-	ft_status(philo->table, FORK, philo->id);
+	ft_status(philo->table, FORKK, philo->id);
 	ft_status(philo->table, EAT, philo->id);
 	sem_wait(philo->table->check);
 	philo->last_meal = ft_timedifference
 		(philo->time.tv_sec, philo->time.tv_usec);
 	sem_post(philo->table->check);
 	ft_usleep(philo->table->eat);
+	sem_post(philo->table->forks);
+	sem_post(philo->table->forks);
 }
 
 void	ft_process(void *arg)

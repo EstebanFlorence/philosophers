@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:54:35 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/21 00:07:31 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:51:19 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void	ft_sem_innit(t_table *table)
 	sem_unlink("forks");
 	sem_unlink("check");
 	sem_unlink("status");
+	sem_unlink("eating");
 	table->forks = sem_open("forks", O_CREAT, S_IRWXU, table->philos);
 	table->check = sem_open("check", O_CREAT, S_IRWXU, 1);
 	table->status = sem_open("status", O_CREAT, S_IRWXU, 1);
+	table->eating = sem_open("eating", O_CREAT, S_IRWXU, 0);
 	if (table->forks == SEM_FAILED || table->check == SEM_FAILED
 		|| table->status == SEM_FAILED)
 		ft_error(4);

@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:36:18 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/21 00:09:02 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:48:25 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ typedef struct s_table
 	sem_t			*forks;
 	sem_t			*status;
 	sem_t			*check;
+
+	sem_t			*eating;
+
+	pthread_t		killer;
 
 	struct timeval	time;
 
