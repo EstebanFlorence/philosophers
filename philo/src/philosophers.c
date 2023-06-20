@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:02:46 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/19 13:56:37 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:24:22 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_philos(t_table *table)
 	table->philo = malloc(sizeof(t_philo) * table->philos);
 	if (!table->philo)
 		ft_error(3);
-	i = -1;
-	gettimeofday(&table->time, NULL);
 	if (table->philos == 1)
 		ft_philo(table);
+	i = -1;
+	gettimeofday(&table->time, NULL);
 	while (++i < table->philos)
 	{
 		table->philo[i].id = i + 1;
