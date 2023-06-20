@@ -6,18 +6,18 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:24:30 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/19 17:40:13 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:00:49 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include <unistd.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <unistd.h>
 
 # define EAT	"\e[0;32m Is eating... \e[0m"
 # define SLEEP	"\e[0;34m Is sleeping... \e[0m"
@@ -65,11 +65,11 @@ typedef struct s_table
 
 void	ft_check(int ac, char **av);
 void	ft_innit(int ac, char **av, t_table *args);
+void	ft_mutex_innit(t_table *table);
 void	ft_philos(t_table *table);
 void	ft_philo(t_table *table);
 
-//	THREADZ
-void	ft_mutex_innit(t_table *table);
+//	SIMULATION
 void	*routine(void *arg);
 void	ft_eat(t_philo *philo);
 void	ft_meal(t_philo *philo);
@@ -77,14 +77,16 @@ void	ft_status(t_table *table, char *message, int id);
 void	ft_end(t_table *table);
 int		ft_death(t_table *table, int i);
 
-//	TOOLZ
+//	TOOLS
+void	ft_error(int n);
+void	ft_destroy(t_table *args);
+void	ft_usleep(time_t time);
+time_t	ft_gettime(void);
+time_t	ft_timedifference(time_t start, suseconds_t ustart);
+
+//	LIBFT
 int		ft_isdigit(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *nbr);
-void	ft_error(int n);
-void	ft_destroy(t_table *args);
-time_t	ft_gettime(void);
-time_t	ft_timedifference(time_t start, suseconds_t ustart);
-void	ft_usleep(time_t time);
 
 #endif

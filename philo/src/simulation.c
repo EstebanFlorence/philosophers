@@ -14,7 +14,7 @@
 
 void	ft_status(t_table *table, char *message, int id)
 {
-	long		timenow;
+	long	timenow;
 
 	pthread_mutex_lock(&table->status);
 	timenow = ft_timedifference(table->time.tv_sec, table->time.tv_usec);
