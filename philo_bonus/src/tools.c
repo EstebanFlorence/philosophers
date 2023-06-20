@@ -6,7 +6,7 @@
 /*   By: adi-nata <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:56:06 by adi-nata          #+#    #+#             */
-/*   Updated: 2023/06/20 13:26:20 by adi-nata         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:49:23 by adi-nata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void	ft_error(int n)
 	if (n == 1)
 		write(2, "Error:\nWrong type of arguments\n", 32);
 	if (n == 2)
-		write(2, "Error:\npthread()\n", 18);
+		write(2, "Error:\nfork()\n", 15);
 	if (n == 3)
 		write(2, "Error:\nmalloc()\n", 17);
+	if (n == 4)
+		write(2, "Error:\nsem_open()\n", 19);
 	exit(EXIT_FAILURE);
-}
-
-ft_destroy(t_table *args)
-{
-	free(args->philo);
-	
 }
